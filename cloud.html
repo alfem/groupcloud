@@ -1,0 +1,73 @@
+<html>
+<head>
+    <title>GROUP CLOUD</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+
+<script src="tagcanvas.min.js" type="text/javascript"></script>
+
+<center>
+<div id="CanvasContainer">
+ <canvas width="800" height="800" id="Cloud">
+  <p>Anything in here will be replaced on browsers that support the canvas element</p>
+ </canvas>
+</div>
+<div id="tags">
+      <ul>
+        <li><a href=>The Cloud</a></li>
+      </ul>
+    </div>
+
+</center>
+
+
+<script type="text/javascript">
+ var options = {
+  textColour: '#ff0000',
+  textHeight: 30,
+  depth: 0.99,
+  shuffleTags: true,
+  initial: [0.4,-0.2],
+  noMouse: true
+ };
+  window.onload = function() {
+    try {
+      TagCanvas.Start('Cloud','tags',options);
+    } catch(e) {
+      // something went wrong, hide the canvas container
+      document.getElementById('CanvasContainer').style.display = 'none';
+    }
+  };
+
+
+
+function loadTags() {
+ var url = "YOUR SERVER URL/api.php";
+ var tagFile = new XMLHttpRequest();
+ tagFile.open("GET",url,true);
+ tagFile.send();
+ tagFile.onreadystatechange = function(){
+                                        if (tagFile.readyState == 4 && tagFile.status == 200) {
+                                          lines = tagFile.responseText.split("\n");
+                                          var items="";
+                                          for(var i in lines){
+                                            if (lines[i].length>3) {
+                                             item='<li><a href="">'+lines[i]+'</a></li>';
+                                             items+=item;
+                                            }
+                                          }
+                                          document.getElementById("tags").innerHTML = items;
+					  TagCanvas.Reload('Cloud');
+                                        }
+                                       }
+}
+
+setInterval("loadTags()",5000);
+
+</script>
+
+
+</body>
+
