@@ -25,12 +25,18 @@
 
 <script type="text/javascript">
  var options = {
-  textColour: '#ff0000',
-  textHeight: 30,
-  depth: 0.99,
-  shuffleTags: true,
-  initial: [0.4,-0.2],
-  noMouse: true
+  textColour: '#FF5733',
+  textHeight: 25,
+  depth: 0.5,
+  shuffleTags: false,
+  noMouse: true,
+  initial: [0.05,-0.03],
+  weight: true,
+  weightMode: "size",
+  weightFrom: "data-weight",
+  weightSize: 3.5,
+  weightSizeMax: 50, 
+  weightSizeMin: 12
  };
   window.onload = function() {
     try {

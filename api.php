@@ -1,7 +1,21 @@
 <?php
 
-$data=file_get_contents('/tmp/groupcloud.txt');
+$file = fopen("/tmp/groupcloud.txt", "r");
+$lines=array();
 
-echo $data;
+while(!feof($file)) {
+ $line=strtolower(rtrim(fgets($file)));
+ if (strlen($line) > 3) {
+   $lines[]=$line;
+ }
+}
+
+fclose($file);
+
+$count = array_count_values($lines);
+
+foreach ($count as $k => $v) {
+  print $k.",".$v."\n";
+}
 
 ?>
